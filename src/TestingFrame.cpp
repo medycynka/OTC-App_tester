@@ -1,5 +1,8 @@
 #include "TestingFrame.h"
 
+wxBEGIN_EVENT_TABLE(TestingFrame, wxFrame)
+
+wxEND_EVENT_TABLE()
 
 TestingFrame::TestingFrame(wxWindow* parent_, wxWindowID id) : wxFrame(parent_, id, "Format", wxPoint(0, 0)), frame_id(id)
 {
@@ -47,7 +50,10 @@ TestingFrame::TestingFrame(wxWindow* parent_, wxWindowID id) : wxFrame(parent_, 
 		Connect(frame_id + 23, wxEVT_COMMAND_MENU_SELECTED, wxCommandEventHandler(TestingFrame::OnMenuHelp));
 	}
 	// Add toolbar
-	m_tool_bar = this->CreateToolBar(wxTB_HORIZONTAL, 1050);
+	m_tool_bar = this->CreateToolBar(wxTB_HORIZONTAL, frame_id + 50);
+	m_btn_refresh = new wxButton(m_tool_bar, frame_id + 51, "Refresh");
+	m_btn_refresh->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &TestingFrame::OnButtonRefresh, this);
+	m_tool_bar->AddControl(m_btn_refresh);
 	m_tool_bar->Realize();
 
 	// Add grid layout
@@ -242,6 +248,13 @@ TestingFrame::~TestingFrame()
 
 void TestingFrame::OnMenuNew(wxCommandEvent& e)
 {
+	if (m_dialogs.find(frame_id + (m_dialogs.size() + 1) * 1000) == m_dialogs.end()) {
+		m_dialogs[frame_id + (m_dialogs.size() + 1) * 1000] = new DialogFrame(this, frame_id + (m_dialogs.size() + 1) * 1000, wxSize(width / 3, height / 4));
+		m_dialogs[frame_id + m_dialogs.size() * 1000]->Bind(wxEVT_CLOSE_WINDOW, &TestingFrame::OnCloseDialog, this);
+		m_dialogs[frame_id + m_dialogs.size() * 1000]->Bind(wxEVT_DESTROY, &TestingFrame::OnDestroyDialog, this);
+		m_dialogs[frame_id + m_dialogs.size() * 1000]->Show();
+	}
+
 	e.Skip();
 }
 
@@ -273,6 +286,12 @@ void TestingFrame::OnMenuExit(wxCommandEvent& e)
 
 void TestingFrame::OnMenuHelp(wxCommandEvent& e)
 {
+	e.Skip();
+}
+
+void TestingFrame::OnButtonRefresh(wxCommandEvent& e)
+{
+	this->Refresh();
 	e.Skip();
 }
 
@@ -360,5 +379,15 @@ void TestingFrame::OnGaugeDec(wxCommandEvent& e)
 		gauge_lvl->AppendText(std::to_string(gauge->GetValue()));
 	}
 
+	e.Skip();
+}
+
+void TestingFrame::OnCloseDialog(wxCloseEvent& e)
+{
+	e.Skip();
+}
+
+void TestingFrame::OnDestroyDialog(wxWindowDestroyEvent& e)
+{
 	e.Skip();
 }

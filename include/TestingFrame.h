@@ -1,4 +1,5 @@
 #pragma once
+
 #include <wx\wx.h>
 #include <wx\notebook.h>
 #include <wx\listctrl.h>
@@ -13,6 +14,8 @@
 #include <wx\spinctrl.h>
 #include <wx\calctrl.h>
 #include <wx\filectrl.h>
+#include "DialogFrame.h"
+
 
 class TestingFrame : public wxFrame
 {
@@ -28,9 +31,12 @@ private:
 	void OnMenuSettings(wxCommandEvent& e);
 	void OnMenuExit(wxCommandEvent& e);
 	void OnMenuHelp(wxCommandEvent& e);
+	void OnButtonRefresh(wxCommandEvent& e);
 	void OnCompassClick(wxCommandEvent& e);
 	void OnGaugeInc(wxCommandEvent& e);
 	void OnGaugeDec(wxCommandEvent& e);
+	void OnCloseDialog(wxCloseEvent &e);
+	void OnDestroyDialog(wxWindowDestroyEvent &e);
 
 private:
 	wxWindowID frame_id;
@@ -38,6 +44,7 @@ private:
 	int height = 0;
 	wxToolBar* m_tool_bar = nullptr;
 	wxMenuBar* m_menu_bar = nullptr;
+	wxButton* m_btn_refresh = nullptr;
 	wxNotebook* m_note = nullptr;
 	wxNotebookPage* m_be_page = nullptr;
 	wxNotebookPage* m_li_page = nullptr;
@@ -72,5 +79,8 @@ private:
 	wxButton* inc_gauge = nullptr;
 	wxButton* dec_gauge = nullptr;
 	wxTextCtrl* gauge_lvl = nullptr;
+	std::unordered_map<wxWindowID, DialogFrame*> m_dialogs;
+
+	wxDECLARE_EVENT_TABLE();
 };
 
