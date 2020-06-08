@@ -22,5 +22,6 @@ private:
 	wxButton* m_save_btn = nullptr;
 	wxButton* m_close_btn = nullptr;
 	wxBitmap m_bit_map;
+	wxStaticBitmap** m_btm = nullptr;
 };
 
