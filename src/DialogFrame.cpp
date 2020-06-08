@@ -7,9 +7,9 @@ DialogFrame::DialogFrame(wxWindow* parent_, wxWindowID id, const wxSize& size_) 
 
 	//Add bitmaps
 	m_bit_map.LoadFile("C:/Users/PC/Desktop/Praca/Projekt/small.bmp", wxBITMAP_TYPE_BMP);
-	wxStaticBitmap** btm = new wxStaticBitmap * [int(GetSize().x / 25)];
+	m_btm = new wxStaticBitmap * [int(GetSize().x / 25)];
 	for (auto i = 0; i < int(GetSize().x / 25); ++i) {
-		btm[i] = new wxStaticBitmap(this, m_dialog_id + 2 + i, m_bit_map, wxPoint(i * 25, GetSize().y / 2 - 10), wxSize(25, 25));
+		m_btm[i] = new wxStaticBitmap(this, m_dialog_id + 2 + i, m_bit_map, wxPoint(i * 25, GetSize().y / 2 - 10), wxSize(25, 25));
 	}
 
 	// Add buttons
@@ -23,6 +23,7 @@ DialogFrame::DialogFrame(wxWindow* parent_, wxWindowID id, const wxSize& size_) 
 
 DialogFrame::~DialogFrame()
 {
+	delete[] m_btm;
 }
 
 void DialogFrame::OnButtonCancel(wxCommandEvent& e)
