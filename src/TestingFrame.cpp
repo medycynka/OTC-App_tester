@@ -4,11 +4,10 @@ wxBEGIN_EVENT_TABLE(TestingFrame, wxFrame)
 
 wxEND_EVENT_TABLE()
 
-TestingFrame::TestingFrame(wxWindow* parent_, wxWindowID id) : wxFrame(parent_, id, "Format", wxPoint(0, 0)), frame_id(id)
+TestingFrame::TestingFrame(wxWindow* parent_, wxWindowID id, std::unordered_map<wxString, float>& config) : wxFrame(parent_, id, "Format", wxPoint(0, 0), wxSize(config["w_width"], config["w_height"])), m_config(config), frame_id(id)
 {
-	//fullscrean size
-	this->Maximize(true);
-	this->GetSize(&width, &height);
+	width = m_config["w_width"];
+	height = m_config["w_height"];
 
 	// Menu bar
 	m_menu_bar = new wxMenuBar();
@@ -57,7 +56,7 @@ TestingFrame::TestingFrame(wxWindow* parent_, wxWindowID id) : wxFrame(parent_, 
 	m_tool_bar->Realize();
 
 	// Add grid layout
-	wxGridSizer* m_grid = new wxGridSizer(2, 2, 0, 0);
+	wxGridSizer* m_grid = new wxGridSizer(2, 2, 10, 10);
 
 	// Top-left part
 	m_note = new wxNotebook(this, frame_id + 100, wxDefaultPosition, wxSize(width / 2, height / 2));
@@ -109,10 +108,10 @@ TestingFrame::TestingFrame(wxWindow* parent_, wxWindowID id) : wxFrame(parent_, 
 	page_check = new wxCheckListBox(m_li_page, frame_id + 122, wxPoint(width / 4, 0), wxSize(width / 4 - 8, height / 4 - 2));
 
 	wxArrayString p_arr;
-	for (auto i = 0; i < 117; ++i) {
+	for (auto i = 0; i < 40; ++i) {
 		p_arr.Add("radio_" + std::to_string(i + 1));
 	}
-	m_radio = new wxRadioBox(m_li_page, frame_id + 123, "Radio box", wxPoint(0, height / 4), wxSize(width / 2 - 4, height / 4 - 10), p_arr, 13);
+	m_radio = new wxRadioBox(m_li_page, frame_id + 123, "Radio box", wxPoint(0, height / 4), wxSize(width / 2 - 4, height / 5), p_arr, 8);
 	page_radio = new wxRadioBox();
 
 	m_note->InsertPage(1, m_li_page, "\tLists\t", false);
@@ -123,8 +122,8 @@ TestingFrame::TestingFrame(wxWindow* parent_, wxWindowID id) : wxFrame(parent_, 
 	wxChoice* pg_choice_box = new wxChoice(m_bo_page, frame_id + 151, wxPoint(0, 0), wxSize(width / 6 - 5, 40), {});
 	wxComboBox* pg_combo_box = new wxComboBox(m_bo_page, frame_id + 152, "Choose one again", wxPoint(width / 6, 0), wxSize(width / 6 - 5, 40));
 	wxSpinCtrl* pg_spin = new wxSpinCtrl(m_bo_page, frame_id + 153, "", wxPoint(width / 3, 0), wxSize(width / 6 - 5, 20), 16384L, -1000, 1000, 0);
-	wxCalendarCtrl* pg_calendar = new wxCalendarCtrl(m_bo_page, frame_id, wxDefaultDateTime, wxPoint(0, height / 8), wxSize(width / 4 - 5, 3 * height / 8 - 5));
-	wxFileCtrl* pf_file_ctrl = new wxFileCtrl(m_bo_page, frame_id + 154, wxEmptyString, wxEmptyString, wxFileSelectorDefaultWildcardStr, wxFC_MULTIPLE, wxPoint(width / 4, height / 8));
+	wxCalendarCtrl* pg_calendar = new wxCalendarCtrl(m_bo_page, frame_id, wxDefaultDateTime, wxPoint(0, 5 * height / 64), wxSize(width / 4 - 5, 3 * height / 8 - 5));
+	wxFileCtrl* pf_file_ctrl = new wxFileCtrl(m_bo_page, frame_id + 154, wxEmptyString, wxEmptyString, wxFileSelectorDefaultWildcardStr, wxFC_MULTIPLE, wxPoint(width / 4, 5 * height / 64));
 
 	m_note->InsertPage(2, m_bo_page, "\tBoxes\t", false);
 	m_grid->Add(m_note, wxEXPAND | wxALL);
@@ -133,17 +132,17 @@ TestingFrame::TestingFrame(wxWindow* parent_, wxWindowID id) : wxFrame(parent_, 
 	top_right = new wxWindow(this, frame_id + 200);
 
 	// Add text field
-	m_txt = new wxTextCtrl(top_right, frame_id + 201, lorem, wxDefaultPosition, wxSize(width / 8, height / 2), wxTE_MULTILINE | wxTE_RICH);
+	m_txt = new wxTextCtrl(top_right, frame_id + 201, lorem, wxPoint(10, 0), wxSize(width / 8, height / 2), wxTE_MULTILINE | wxTE_RICH);
 
 	// Add buttons
-	main_btn = new wxButton * [20];
+	main_btn = new wxToggleButton * [20];
 	for (auto i = 0; i < 10; ++i) {
-		main_btn[i] = new wxButton(top_right, frame_id + 202 + i, "Clicker " + std::to_string(i + 1), wxPoint(width / 8 + 50, i * (height / 20)), wxSize(width / 16 + 10, height / 20));
-		main_btn[i + 10] = new wxButton(top_right, frame_id + 202 + i + 10, "Clicker " + std::to_string(i + 11), wxPoint(2 * width / 8 - 50, i * (height / 20)), wxSize(width / 16 + 10, height / 20));
+		main_btn[i] = new wxToggleButton(top_right, frame_id + 202 + i, "Clicker " + std::to_string(i + 1), wxPoint(5 * width / 32, i * (height / 20)), wxSize(width / 16, height / 20));
+		main_btn[i + 10] = new wxToggleButton(top_right, frame_id + 202 + i + 10, "Clicker " + std::to_string(i + 11), wxPoint(7 * width / 32, i * (height / 20)), wxSize(width / 16, height / 20));
 	}
 
 	// Add check list
-	m_checker = new wxListBox(top_right, frame_id + 222, wxPoint(21 * width / 64, 0), wxSize(11 * width / 64, height / 2));
+	m_checker = new wxListBox(top_right, frame_id + 222, wxPoint(41 * width / 128, 0), wxSize(11 * width / 64, height / 2));
 
 	m_grid->Add(top_right, wxEXPAND | wxALL);
 
@@ -151,7 +150,7 @@ TestingFrame::TestingFrame(wxWindow* parent_, wxWindowID id) : wxFrame(parent_, 
 	bottom_left = new wxWindow(this, frame_id + 300);
 
 	// Add report table
-	m_table = new wxListCtrl(bottom_left, frame_id + 301, wxPoint(0, 35), wxSize(width / 4, height / 5), wxLC_REPORT, wxDefaultValidator, "Report table");
+	m_table = new wxListCtrl(bottom_left, frame_id + 301, wxPoint(0, 45), wxSize(width / 4, height / 5 - 10), wxLC_REPORT, wxDefaultValidator, "Report table");
 	{
 		wxListItem col0, col1, col2, col3, col4;
 		col0.SetId(0);
@@ -173,16 +172,16 @@ TestingFrame::TestingFrame(wxWindow* parent_, wxWindowID id) : wxFrame(parent_, 
 	}
 
 	// Add Report writer
-	m_report = new wxStaticText(bottom_left, frame_id + 302, "Write a report", wxPoint(width / 4 + 20, 35), wxSize(width / 4 - 20, 30));
-	m_date = new wxDatePickerCtrl(bottom_left, frame_id + 303, wxDefaultDateTime, wxPoint(width / 4 + 20, 60), wxSize(100, 30));
-	m_font = new wxFontPickerCtrl(bottom_left, frame_id + 304, wxNullFont, wxPoint(width / 4 + 140, 60), wxSize(100, 30));
-	m_report_txt = new wxTextCtrl(bottom_left, frame_id + 305, "", wxPoint(width / 4 + 20, 100), wxSize(width / 4 - 30, height / 3 - 20), wxTE_MULTILINE | wxTE_RICH);
-	m_btn_save = new wxButton(bottom_left, frame_id + 306, "Save", wxPoint(width / 4 + 30, height / 3 + 85), wxSize(120, 30));
-	m_btn_print = new wxButton(bottom_left, frame_id + 307, "Print", wxPoint(width / 4 + 185, height / 3 + 85), wxSize(120, 30));
-	m_btn_send = new wxButton(bottom_left, frame_id + 308, "Send", wxPoint(width / 4 + 340, height / 3 + 85), wxSize(120, 30));
+	m_report = new wxStaticText(bottom_left, frame_id + 302, "Write a report", wxPoint(17 * width / 64, 45));
+	m_date = new wxDatePickerCtrl(bottom_left, frame_id + 303, wxDefaultDateTime, wxPoint(width / 4 + 20, 65), wxSize(100, 30));
+	m_font = new wxFontPickerCtrl(bottom_left, frame_id + 304, wxNullFont, wxPoint(width / 4 + 140, 65), wxSize(100, 30));
+	m_report_txt = new wxTextCtrl(bottom_left, frame_id + 305, "", wxPoint(width / 4 + 20, 100), wxSize(width / 4 - 30, height / 5), wxTE_MULTILINE | wxTE_RICH);
+	m_btn_save = new wxButton(bottom_left, frame_id + 306, "Save", wxPoint(35 * width / 128, 11 * height / 32), wxSize(9 * width / 128, 30));
+	m_btn_print = new wxButton(bottom_left, frame_id + 307, "Print", wxPoint(89 * width / 256, 11 * height / 32), wxSize(9 * width / 128, 30));
+	m_btn_send = new wxButton(bottom_left, frame_id + 308, "Send", wxPoint(27 * width / 64, 11 * height / 32), wxSize(9 * width / 128, 30));
 
 	//Add check list
-	m_task_check = new wxCheckListBox(bottom_left, frame_id + 310, wxPoint(0, height / 4), wxSize(width / 4, height / 5));
+	m_task_check = new wxCheckListBox(bottom_left, frame_id + 310, wxPoint(0, height / 4), wxSize(width / 4, height / 6));
 
 	m_grid->Add(bottom_left, wxEXPAND | wxALL);
 
@@ -200,19 +199,19 @@ TestingFrame::TestingFrame(wxWindow* parent_, wxWindowID id) : wxFrame(parent_, 
 	m_radio = new wxRadioBox(bottom_right, frame_id + 402, "Radio box", wxPoint(0, 100), wxSize(200, 200), arr, 3);
 
 	// Add gauge
-	gauge = new wxGauge(bottom_right, frame_id + 403, 100, wxPoint(310, 50), wxSize(200, 40));
+	gauge = new wxGauge(bottom_right, frame_id + 403, 100, wxPoint(width / 5, 50), wxSize(width / 6, 40));
 	gauge->SetValue(0);
 
-	inc_gauge = new wxButton(bottom_right, frame_id + 404, "Gauge +1", wxPoint(310, 100), wxSize(120, 30));
+	inc_gauge = new wxButton(bottom_right, frame_id + 404, "Gauge +1", wxPoint(width / 5, 100), wxSize(width / 12, 30));
 	inc_gauge->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &TestingFrame::OnGaugeInc, this);
-	dec_gauge = new wxButton(bottom_right, frame_id + 405, "Gauge -1", wxPoint(440, 100), wxSize(120, 30));
+	dec_gauge = new wxButton(bottom_right, frame_id + 405, "Gauge -1", wxPoint(17 * width / 60, 100), wxSize(width / 12, 30));
 	dec_gauge->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &TestingFrame::OnGaugeDec, this);
-	wxStaticText* gauge_txt = new wxStaticText(bottom_right, 1406, "Current gauge lvl:", wxPoint(530, 50));
-	gauge_lvl = new wxTextCtrl(bottom_right, frame_id + 406, "0", wxPoint(530, 70));
+	wxStaticText* gauge_txt = new wxStaticText(bottom_right, 1406, "Current gauge lvl:", wxPoint(23 * width / 60, 50));
+	gauge_lvl = new wxTextCtrl(bottom_right, frame_id + 406, "0", wxPoint(23 * width / 60, 70));
 
 	// Add file/dir picker
-	m_file_picker = new wxFilePickerCtrl(bottom_right, frame_id + 407, "", "File picker", "", wxPoint(0, 320), wxSize(width / 2 - 10, 30));
-	m_dir_picker = new wxDirPickerCtrl(bottom_right, frame_id + 408, "", "Dir picker", wxPoint(0, 360), wxSize(width / 2 - 10, 30));
+	m_file_picker = new wxFilePickerCtrl(bottom_right, frame_id + 407, "", "File picker", "", wxPoint(width / 5, 5 * width / 32), wxSize(width / 4 - 10, 30));
+	m_dir_picker = new wxDirPickerCtrl(bottom_right, frame_id + 408, "", "Dir picker", wxPoint(width / 5, 3 * width / 16), wxSize(width / 4 - 10, 30));
 	
 	m_grid->Add(bottom_right, wxEXPAND | wxALL);
 
@@ -238,6 +237,25 @@ TestingFrame::TestingFrame(wxWindow* parent_, wxWindowID id) : wxFrame(parent_, 
 
 	this->SetSizer(m_grid);
 	m_grid->Layout();
+	Show();
+
+	int dialogs_nr = m_config["z-order_count"] != 0 ? m_config["z-order_count"] : m_config["seq_count"];
+	for (auto i = 0; i < dialogs_nr; ++i) {
+		m_dialogs[frame_id + 1000 + (m_dialogs.size() + 1) * 100] = new DialogFrame(this, frame_id + 1000 + (m_dialogs.size() + 1) * 100, wxSize(config["w_width"] / 3, config["w_height"] / 3));
+		m_dialogs[frame_id + 1000 + m_dialogs.size() * 100]->Show();
+
+		// For minimazing dialog
+		if (m_config["seq_count"] != 0) {
+			m_dialogs[frame_id + 1000 + m_dialogs.size() * 100]->Iconize();
+		}
+	}
+
+	if (m_config["seq_count"] != 0) m_dialogs[frame_id + 1000 + 100]->Maximize(false);
+
+	// Creating timer
+	m_timer = new wxTimer(this, frame_id + 500);
+
+	RunAllTests();
 }
 
 TestingFrame::~TestingFrame()
@@ -248,11 +266,9 @@ TestingFrame::~TestingFrame()
 
 void TestingFrame::OnMenuNew(wxCommandEvent& e)
 {
-	if (m_dialogs.find(frame_id + (m_dialogs.size() + 1) * 1000) == m_dialogs.end()) {
-		m_dialogs[frame_id + (m_dialogs.size() + 1) * 1000] = new DialogFrame(this, frame_id + (m_dialogs.size() + 1) * 1000, wxSize(width / 3, height / 4));
-		m_dialogs[frame_id + m_dialogs.size() * 1000]->Bind(wxEVT_CLOSE_WINDOW, &TestingFrame::OnCloseDialog, this);
-		m_dialogs[frame_id + m_dialogs.size() * 1000]->Bind(wxEVT_DESTROY, &TestingFrame::OnDestroyDialog, this);
-		m_dialogs[frame_id + m_dialogs.size() * 1000]->Show();
+	if (m_dialogs.find(frame_id + 1000 + (m_dialogs.size() + 1) * 100) == m_dialogs.end()) {
+		m_dialogs[frame_id + 1000 + (m_dialogs.size() + 1) * 100] = new DialogFrame(this, frame_id + (m_dialogs.size() + 1) * 1000, wxSize(width / 3, height / 3));
+		m_dialogs[frame_id + 1000 + m_dialogs.size() * 100]->Show();
 	}
 
 	e.Skip();
@@ -382,12 +398,183 @@ void TestingFrame::OnGaugeDec(wxCommandEvent& e)
 	e.Skip();
 }
 
-void TestingFrame::OnCloseDialog(wxCloseEvent& e)
+void TestingFrame::OnTimerTickZOrder(wxTimerEvent& e)
 {
+	if (wxGetLocalTimeMillis() - m_start_point <= m_config["interval"] * m_config["z-order_count"]) {
+		if (m_curr_op_count < m_config["z-order_count"]) {
+			if (m_curr_it == m_dialogs.end()) {
+				m_curr_it = m_dialogs.begin();
+			}
+
+			(*m_curr_it).second->Raise();
+			m_curr_it++;
+			m_curr_op_count++;
+		}
+		else {
+			m_all_op_count += m_curr_op_count;
+			m_result["z-order"] = m_curr_op_count;
+			m_curr_op_count = 0;
+			m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
+			m_start_point = wxGetLocalTimeMillis();
+
+			// Setting time event handler to next operation
+			Disconnect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickZOrder));
+			Connect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickRefresh));
+
+			CloseAllDialogs();
+		}
+	}
+	else {
+		m_all_op_count += m_curr_op_count;
+		m_result["z-order"] = m_curr_op_count;
+		m_curr_op_count = 0;
+		m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
+		m_start_point = wxGetLocalTimeMillis();
+
+		// Setting time event handler to next operation
+		Disconnect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickZOrder));
+		Connect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickRefresh));
+
+		CloseAllDialogs();
+	}
+
 	e.Skip();
 }
 
-void TestingFrame::OnDestroyDialog(wxWindowDestroyEvent& e)
+void TestingFrame::OnTimerTickSeq(wxTimerEvent& e)
 {
+	if (wxGetLocalTimeMillis() - m_start_point <= m_config["interval"] * m_config["seq_count"]) {
+		if (m_curr_op_count < m_config["seq_count"]) {
+			(*m_curr_it).second->Iconize();
+			m_curr_it++;
+
+			if (m_curr_it == m_dialogs.end()) {
+				m_curr_it = m_dialogs.begin();
+			}
+
+			(*m_curr_it).second->Maximize(false);
+
+			m_curr_op_count++;
+		}
+		else {
+			m_all_op_count += m_curr_op_count;
+			m_result["seq"] = m_curr_op_count;
+			m_curr_op_count = 0;
+			m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
+			m_start_point = wxGetLocalTimeMillis();
+
+			// Setting time event handler to next operation
+			Disconnect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickSeq));
+			Connect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickRefresh));
+
+			CloseAllDialogs();
+		}
+	}
+	else {
+		m_all_op_count += m_curr_op_count;
+		m_result["seq"] = m_curr_op_count;
+		m_curr_op_count = 0;
+		m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
+		m_start_point = wxGetLocalTimeMillis();
+
+		// Setting time event handler to next operation
+		Disconnect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickSeq));
+		Connect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickRefresh));
+
+		CloseAllDialogs();
+	}
+
 	e.Skip();
+}
+
+void TestingFrame::OnTimerTickRefresh(wxTimerEvent& e)
+{
+	if (wxGetLocalTimeMillis() - m_start_point <= m_config["interval"] * m_config["refresh_count"]) {
+		if (m_curr_op_count < m_config["refresh_count"]) {
+			this->Refresh();
+			m_curr_op_count++;
+		}
+		else {
+			m_all_op_count += m_curr_op_count;
+			m_result["refresh"] = m_curr_op_count;
+			m_curr_op_count = 0;
+			m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
+			m_start_point = wxGetLocalTimeMillis();
+
+			m_timer->Stop();
+			WriteResults();
+		}
+	}
+	else {
+		m_all_op_count += m_curr_op_count;
+		m_result["refresh"] = m_curr_op_count;
+		m_curr_op_count = 0;
+		m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
+		m_start_point = wxGetLocalTimeMillis();
+
+		m_timer->Stop();
+		WriteResults();
+	}
+
+	e.Skip();
+}
+
+void TestingFrame::CloseAllDialogs()
+{
+	for (auto& e : m_dialogs) {
+		e.second->Close();
+	}
+}
+
+unsigned long TestingFrame::GetPlannedOperationsCount()
+{
+	return unsigned long(m_config["z-order_count"] + m_config["seq_count"] + m_config["refresh_count"]);
+}
+
+void TestingFrame::RunAllTests()
+{
+	m_curr_it = m_dialogs.begin();
+
+	if (m_config["z-order_count"] != 0) {
+		Connect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickZOrder));
+		m_start_point = wxGetLocalTimeMillis();
+		m_timer->Start(m_config["interval"]);
+	}
+	else {
+		Connect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::TestingFrame::OnTimerTickSeq));
+		m_start_point = wxGetLocalTimeMillis();
+		m_timer->Start(m_config["interval"]);
+	}
+}
+
+void TestingFrame::WriteResults()
+{
+	wxTextFile result("result" + std::to_string(frame_id) + ".txt");
+	result.Create("result" + std::to_string(frame_id) + ".txt");
+	result.Open();
+	result.Clear();
+	{
+		result.AddLine("Test summary with:");
+		result.AddLine("\ttotal time planned: " + std::to_string(int(m_config["total_time"])) + " minutes");
+		result.AddLine("\tinterval: " + std::to_string(int(m_config["interval"])) + "ms");
+		result.AddLine("");
+		result.AddLine("Planned operations " + std::to_string(GetPlannedOperationsCount()));
+		result.AddLine("Actually done " + std::to_string(m_all_op_count));
+		result.AddLine("Test took " + std::to_string(m_accumulate_time.GetValue()) + "ms");
+		result.AddLine("CPU usage " + std::to_string(0) + "%");
+		result.AddLine("");
+		result.AddLine("\"z-order\" result:");
+		result.AddLine("\t planned operations count: " + std::to_string(int(m_config["z-order_count"])));
+		result.AddLine("\t actual operations count: " + std::to_string(m_result["z-order"]));
+		result.AddLine("");
+		result.AddLine("\"sequential\" result:");
+		result.AddLine("\t planned operations count: " + std::to_string(int(m_config["seq_count"])));
+		result.AddLine("\t actual operations count: " + std::to_string(m_result["seq"]));
+		result.AddLine("");
+		result.AddLine("refresh result:");
+		result.AddLine("\t planned operations count: " + std::to_string(int(m_config["refresh_count"])));
+		result.AddLine("\t actual operations count: " + std::to_string(m_result["refresh"]));
+	}
+	result.Write();
+	result.Close();
 }

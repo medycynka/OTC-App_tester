@@ -1,15 +1,17 @@
 #include "DialogFrame.h"
 
-DialogFrame::DialogFrame(wxWindow* parent_, wxWindowID id, const wxSize& size_) : wxFrame(parent_, id, "Simple dialog", wxPoint(25, 50), size_), m_dialog_id(id)
+DialogFrame::DialogFrame(wxWindow* parent_, wxWindowID id, const wxSize& size_) : wxFrame(parent_, id, "Simple dialog " + std::to_string(id), wxPoint(25, 50), size_), m_dialog_id(id)
 {
 	// Add text
 	m_dialog_text = new wxTextCtrl(this, m_dialog_id + 1, m_txt, wxDefaultPosition, wxSize(GetSize().x - 20, GetSize().y / 2 - 20), wxTE_MULTILINE | wxTE_RICH);
 
 	//Add bitmaps
-	m_bit_map.LoadFile("C:/Users/PC/Desktop/Praca/Projekt/small.bmp", wxBITMAP_TYPE_BMP);
-	m_btm = new wxStaticBitmap * [int(GetSize().x / 25)];
-	for (auto i = 0; i < int(GetSize().x / 25); ++i) {
-		m_btm[i] = new wxStaticBitmap(this, m_dialog_id + 2 + i, m_bit_map, wxPoint(i * 25, GetSize().y / 2 - 10), wxSize(25, 25));
+	wxBitmap m_bit_map("dialog_map.bmp", wxBITMAP_TYPE_BMP);
+	int bit_n = std::floor(GetSize().x / 25);
+	m_btm = new wxStaticBitmap * [2 * bit_n];
+	for (auto i = 0; i < bit_n; ++i) {
+		m_btm[i] = new wxStaticBitmap(this, m_dialog_id + 2 + i, m_bit_map, wxPoint(i * 25, GetSize().y / 2 - 5), wxSize(25, 25));
+		m_btm[i + bit_n] = new wxStaticBitmap(this, m_dialog_id + 2 + bit_n + i, m_bit_map, wxPoint(i * 25, GetSize().y / 2 + 20), wxSize(25, 25));
 	}
 
 	// Add buttons
