@@ -16,6 +16,7 @@
 #include <wx\filectrl.h>
 #include <wx\textfile.h>
 #include <wx\tglbtn.h>
+#include "CpuUsageReader.h"
 #include "DialogFrame.h"
 
 
@@ -43,6 +44,9 @@ private:
 	void OnTimerTickZOrder(wxTimerEvent& e);
 	void OnTimerTickSeq(wxTimerEvent& e);
 	void OnTimerTickRefresh(wxTimerEvent& e);
+	void OnTimerTickTabCtrl(wxTimerEvent& e);
+	void OnTimerTickButton(wxTimerEvent& e);
+	void OnTimerTickScroll(wxTimerEvent& e);
 
 	// Helper functions
 	void CloseAllDialogs();
@@ -94,14 +98,15 @@ private:
 	wxButton* inc_gauge = nullptr;
 	wxButton* dec_gauge = nullptr;
 	wxTextCtrl* gauge_lvl = nullptr;
-	std::unordered_map<wxWindowID, DialogFrame*> m_dialogs;
-	std::unordered_map<wxWindowID, DialogFrame*>::iterator m_curr_it;
+	std::vector<std::pair<wxWindowID, DialogFrame*>> m_dialogs;
+	std::vector<std::pair<wxWindowID, DialogFrame*>>::iterator m_curr_it;
 	wxTimer* m_timer = nullptr;
 	wxMilliClock_t m_start_point = 0;
 	wxMilliClock_t m_accumulate_time = 0;
 	unsigned long m_curr_op_count = 0;
 	unsigned long m_all_op_count = 0;
 	std::unordered_map<wxString, unsigned long> m_result;
+	bool m_scroll_down = true;
 
 	wxDECLARE_EVENT_TABLE();
 };

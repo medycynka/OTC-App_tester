@@ -33,13 +33,17 @@ bool tApp::OnInit()
     }
     else {
         m_config = std::unordered_map<wxString, float>{ 
+            {"test_id", 1}, 
             {"w_width", 1600}, {"w_height", 1024}, 
             {"total_time", 1}, 
-            {"interval", 1000}, 
+            {"interval", 250}, 
             {"dialogs_count", 3}, 
             {"z-order_count", 10}, 
             {"seq_count", 0}, 
-            {"refresh_count", 3}
+            {"refresh_count", 0}, 
+            {"tab_change_count", 10}, 
+            {"button_press_count", 10}, 
+            {"scroll_count", 10}
         };
     }
 

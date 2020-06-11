@@ -239,18 +239,20 @@ TestingFrame::TestingFrame(wxWindow* parent_, wxWindowID id, std::unordered_map<
 	m_grid->Layout();
 	Show();
 
+	// Creating dialogs
 	int dialogs_nr = m_config["z-order_count"] != 0 ? m_config["z-order_count"] : m_config["seq_count"];
 	for (auto i = 0; i < dialogs_nr; ++i) {
-		m_dialogs[frame_id + 1000 + (m_dialogs.size() + 1) * 100] = new DialogFrame(this, frame_id + 1000 + (m_dialogs.size() + 1) * 100, wxSize(config["w_width"] / 3, config["w_height"] / 3));
-		m_dialogs[frame_id + 1000 + m_dialogs.size() * 100]->Show();
+		DialogFrame* temp = new DialogFrame(this, frame_id + 1000 + (m_dialogs.size() + 1) * 100, wxSize(config["w_width"] / 3, config["w_height"] / 3));
+		temp->Show();
 
-		// For minimazing dialog
 		if (m_config["seq_count"] != 0) {
-			m_dialogs[frame_id + 1000 + m_dialogs.size() * 100]->Iconize();
+			temp->Iconize();
 		}
+
+		m_dialogs.push_back({ frame_id + 1000 + (m_dialogs.size() + 1) * 100, temp });
 	}
 
-	if (m_config["seq_count"] != 0) m_dialogs[frame_id + 1000 + 100]->Maximize(false);
+	if (m_config["seq_count"] != 0) m_dialogs[0].second->Maximize(false);
 
 	// Creating timer
 	m_timer = new wxTimer(this, frame_id + 500);
@@ -266,10 +268,9 @@ TestingFrame::~TestingFrame()
 
 void TestingFrame::OnMenuNew(wxCommandEvent& e)
 {
-	if (m_dialogs.find(frame_id + 1000 + (m_dialogs.size() + 1) * 100) == m_dialogs.end()) {
-		m_dialogs[frame_id + 1000 + (m_dialogs.size() + 1) * 100] = new DialogFrame(this, frame_id + (m_dialogs.size() + 1) * 1000, wxSize(width / 3, height / 3));
-		m_dialogs[frame_id + 1000 + m_dialogs.size() * 100]->Show();
-	}
+	DialogFrame* temp = new DialogFrame(this, frame_id + 1000 + (m_dialogs.size() + 1) * 100, wxSize(m_config["w_width"] / 3, m_config["w_height"] / 3));
+	temp->Show();
+	m_dialogs.push_back({ frame_id + 1000 + (m_dialogs.size() + 1) * 100, temp });
 
 	e.Skip();
 }
@@ -501,13 +502,130 @@ void TestingFrame::OnTimerTickRefresh(wxTimerEvent& e)
 			m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
 			m_start_point = wxGetLocalTimeMillis();
 
+			// Setting time event handler to next operation
+			Disconnect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickRefresh));
+			Connect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickTabCtrl));
+		}
+	}
+	else {
+		m_all_op_count += m_curr_op_count;
+		m_result["refresh"] = m_curr_op_count;
+		m_curr_op_count = 0;
+		m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
+		m_start_point = wxGetLocalTimeMillis();
+
+		// Setting time event handler to next operation
+		Disconnect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickRefresh));
+		Connect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickTabCtrl));
+	}
+
+	e.Skip();
+}
+
+void TestingFrame::OnTimerTickTabCtrl(wxTimerEvent& e)
+{
+	if (wxGetLocalTimeMillis() - m_start_point <= m_config["interval"] * m_config["tab_change_count"]) {
+		if (m_curr_op_count < m_config["tab_change_count"]) {
+			m_note->ChangeSelection(m_curr_op_count % 3);
+			m_curr_op_count++;
+		}
+		else {
+			m_all_op_count += m_curr_op_count;
+			m_result["tab"] = m_curr_op_count;
+			m_curr_op_count = 0;
+			m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
+			m_start_point = wxGetLocalTimeMillis();
+
+			// Setting time event handler to next operation
+			Disconnect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickTabCtrl));
+			Connect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickButton));
+		}
+	}
+	else {
+		m_all_op_count += m_curr_op_count;
+		m_result["tab"] = m_curr_op_count;
+		m_curr_op_count = 0;
+		m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
+		m_start_point = wxGetLocalTimeMillis();
+
+		// Setting time event handler to next operation
+		Disconnect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickTabCtrl));
+		Connect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickButton));
+	}
+	e.Skip();
+}
+
+void TestingFrame::OnTimerTickButton(wxTimerEvent& e)
+{
+	if (wxGetLocalTimeMillis() - m_start_point <= m_config["interval"] * m_config["button_press_count"]) {
+		if (m_curr_op_count < m_config["button_press_count"]) {
+			main_btn[2]->SetValue(!main_btn[2]->GetValue());
+			m_curr_op_count++;
+		}
+		else {
+			m_all_op_count += m_curr_op_count;
+			m_result["tab"] = m_curr_op_count;
+			m_curr_op_count = 0;
+			main_btn[2]->SetValue(false);
+			m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
+			m_start_point = wxGetLocalTimeMillis();
+
+			// Setting time event handler to next operation
+			Disconnect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickButton));
+			Connect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickScroll));
+		}
+	}
+	else {
+		m_all_op_count += m_curr_op_count;
+		m_result["tab"] = m_curr_op_count;
+		m_curr_op_count = 0;
+		main_btn[2]->SetValue(false);
+		m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
+		m_start_point = wxGetLocalTimeMillis();
+
+		// Setting time event handler to next operation
+		Disconnect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickButton));
+		Connect(frame_id + 500, wxEVT_TIMER, wxTimerEventHandler(TestingFrame::OnTimerTickScroll));
+	}
+
+	e.Skip();
+}
+
+void TestingFrame::OnTimerTickScroll(wxTimerEvent& e)
+{
+	if (wxGetLocalTimeMillis() - m_start_point <= m_config["interval"] * m_config["scroll_count"]) {
+		if (m_curr_op_count < m_config["scroll_count"]) {
+			if (m_scroll_down) {
+				m_txt->ScrollLines(1);
+				m_curr_op_count++;
+				
+				if (m_txt->GetScrollPos(wxVERTICAL) >= m_txt->GetScrollRange(wxVERTICAL) / 2) {
+					m_scroll_down = false;
+				}
+			}
+			else {
+				m_txt->ScrollLines(-1);
+				m_curr_op_count++;
+
+				if (m_txt->GetScrollPos(wxVERTICAL) <= 2) {
+					m_scroll_down = true;
+				}
+			}
+		}
+		else {
+			m_all_op_count += m_curr_op_count;
+			m_result["scroll"] = m_curr_op_count;
+			m_curr_op_count = 0;
+			m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
+			m_start_point = wxGetLocalTimeMillis();
+
 			m_timer->Stop();
 			WriteResults();
 		}
 	}
 	else {
 		m_all_op_count += m_curr_op_count;
-		m_result["refresh"] = m_curr_op_count;
+		m_result["scroll"] = m_curr_op_count;
 		m_curr_op_count = 0;
 		m_accumulate_time += wxGetLocalTimeMillis() - m_start_point;
 		m_start_point = wxGetLocalTimeMillis();
@@ -528,7 +646,7 @@ void TestingFrame::CloseAllDialogs()
 
 unsigned long TestingFrame::GetPlannedOperationsCount()
 {
-	return unsigned long(m_config["z-order_count"] + m_config["seq_count"] + m_config["refresh_count"]);
+	return unsigned long(m_config["z-order_count"] + m_config["seq_count"] + m_config["refresh_count"] + m_config["tab_change_count"] + m_config["button_press_count"]);
 }
 
 void TestingFrame::RunAllTests()
@@ -549,12 +667,12 @@ void TestingFrame::RunAllTests()
 
 void TestingFrame::WriteResults()
 {
-	wxTextFile result("result" + std::to_string(frame_id) + ".txt");
-	result.Create("result" + std::to_string(frame_id) + ".txt");
+	wxTextFile result("results/result_ID" + std::to_string(m_config["test_id"]) + "x" + std::to_string(frame_id) + "x" + std::to_string(GetCurrentProcessId()) + ".txt");
+	result.Create("results/result_ID" + std::to_string(frame_id) + "x" + std::to_string(GetCurrentProcessId()) + ".txt");
 	result.Open();
 	result.Clear();
 	{
-		result.AddLine("Test summary with:");
+		result.AddLine("Test " + std::to_string(m_config["test_id"]) + " summary with:");
 		result.AddLine("\ttotal time planned: " + std::to_string(int(m_config["total_time"])) + " minutes");
 		result.AddLine("\tinterval: " + std::to_string(int(m_config["interval"])) + "ms");
 		result.AddLine("");
@@ -566,14 +684,32 @@ void TestingFrame::WriteResults()
 		result.AddLine("\"z-order\" result:");
 		result.AddLine("\t planned operations count: " + std::to_string(int(m_config["z-order_count"])));
 		result.AddLine("\t actual operations count: " + std::to_string(m_result["z-order"]));
+		result.AddLine("\t performance indicator: " + std::to_string(m_config["z-order_count"] == 0 ? 100 : (m_result["z-order"] / m_config["z-order_count"]) * 100.0f) + "%");
 		result.AddLine("");
 		result.AddLine("\"sequential\" result:");
 		result.AddLine("\t planned operations count: " + std::to_string(int(m_config["seq_count"])));
 		result.AddLine("\t actual operations count: " + std::to_string(m_result["seq"]));
+		result.AddLine("\t performance indicator: " + std::to_string(m_config["seq_count"] == 0 ? 100 : (m_result["seq"] / m_config["seq_count"]) * 100.0f) + "%");
 		result.AddLine("");
 		result.AddLine("refresh result:");
 		result.AddLine("\t planned operations count: " + std::to_string(int(m_config["refresh_count"])));
 		result.AddLine("\t actual operations count: " + std::to_string(m_result["refresh"]));
+		result.AddLine("\t performance indicator: " + std::to_string(m_config["refresh_count"] == 0 ? 100 : (m_result["refresh"] / m_config["refresh_count"]) * 100.0f) + "%");
+		result.AddLine("");
+		result.AddLine("Tab control change result:");
+		result.AddLine("\t planned operations count: " + std::to_string(int(m_config["tab_change_count"])));
+		result.AddLine("\t actual operations count: " + std::to_string(m_result["tab"]));
+		result.AddLine("\t performance indicator: " + std::to_string(m_config["tab_change_count"] == 0 ? 100 : (m_result["tab"] / m_config["tab_change_count"]) * 100.0f) + "%");
+		result.AddLine("");
+		result.AddLine("Button clicks result:");
+		result.AddLine("\t planned operations count: " + std::to_string(int(m_config["button_press_count"])));
+		result.AddLine("\t actual operations count: " + std::to_string(m_result["button"]));
+		result.AddLine("\t performance indicator: " + std::to_string(m_config["button_press_count"] == 0 ? 100 : (m_result["button"] / m_config["button_press_count"]) * 100.0f) + "%");
+		result.AddLine("");
+		result.AddLine("Scroll result:");
+		result.AddLine("\t planned operations count: " + std::to_string(int(m_config["scroll_count"])));
+		result.AddLine("\t actual operations count: " + std::to_string(m_result["scroll"]));
+		result.AddLine("\t performance indicator: " + std::to_string(m_config["scroll_count"] == 0 ? 100 : (m_result["scroll"] / m_config["scroll_count"]) * 100.0f) + "%");
 	}
 	result.Write();
 	result.Close();

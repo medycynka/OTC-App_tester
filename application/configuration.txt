@@ -1,0 +1,12 @@
+test_id 1
+w_width 1280
+w_height 720
+total_time 10
+interval 1000
+dialogs_count 10
+z-order_count 10
+seq_count 0
+refresh_count 3
+tab_change_count 10
+button_press_count 10
+scroll_count 10
