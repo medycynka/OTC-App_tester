@@ -1,7 +1,7 @@
 test_id 1
 w_width 1280
 w_height 720
-total_time 10
+time_limit 10
 interval 1000
 dialogs_count 10
 z-order_count 10
@@ -10,3 +10,8 @@ refresh_count 3
 tab_change_count 10
 button_press_count 10
 scroll_count 10
+select_list_count 10
+check_list_count 10
+write_count 10
+radio_list_count 10
+gauge_count 10
