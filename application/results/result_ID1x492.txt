@@ -1,0 +1,64 @@
+Test 1 summary with:
+	time limit: 10 minutes
+	interval: 250ms
+
+Planned operations 900
+Actually done 864
+Total performance indicator: 96.000000%
+Test took 227175ms
+Averge CPU usage 0.196796%
+
+"z-order" result:
+	 planned operations count: 100
+	 actual operations count: 96
+	 performance indicator: 96.000000%
+
+"sequential" result:
+	 planned operations count: 0
+	 actual operations count: 0
+	 performance indicator: 100.000000%
+
+refresh result:
+	 planned operations count: 0
+	 actual operations count: 0
+	 performance indicator: 100.000000%
+
+Tab control change result:
+	 planned operations count: 100
+	 actual operations count: 96
+	 performance indicator: 96.000000%
+
+Button clicks result:
+	 planned operations count: 100
+	 actual operations count: 96
+	 performance indicator: 96.000000%
+
+Scroll result:
+	 planned operations count: 100
+	 actual operations count: 96
+	 performance indicator: 96.000000%
+
+Select list result:
+	 planned operations count: 100
+	 actual operations count: 96
+	 performance indicator: 96.000000%
+
+Check list result:
+	 planned operations count: 100
+	 actual operations count: 96
+	 performance indicator: 96.000000%
+
+Writing result:
+	 planned operations count: 100
+	 actual operations count: 96
+	 performance indicator: 96.000000%
+
+Radio box result:
+	 planned operations count: 100
+	 actual operations count: 96
+	 performance indicator: 96.000000%
+
+Gauge result:
+	 planned operations count: 100
+	 actual operations count: 96
+	 performance indicator: 96.000000%
