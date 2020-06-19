@@ -1,0 +1,6 @@
+2020:06:19 13:35:36: 10460: TID 1: TM 90: PERF 110: 100.000000%: CPU 15.930233%: Opis testu 
+z-order 10 10 100%, tab_change 10 10 100%, button_press 30 30 100%, scroll 10 10 100%, select_list 10 10 100%, check_list 10 10 100%, radio_list 10 10 100%, write 10 10 100%, gauge 10 10 100% 
+
+2020:06:19 13:35:37: 9932: TID 1: TM 90: PERF 110: 100.000000%: CPU 16.000000%: Opis testu 
+z-order 10 10 100%, tab_change 10 10 100%, button_press 30 30 100%, scroll 10 10 100%, select_list 10 10 100%, check_list 10 10 100%, radio_list 10 10 100%, write 10 10 100%, gauge 10 10 100% 
+
