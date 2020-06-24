@@ -1,28 +1,17 @@
-test_id 1 Opis testu
+test_id 1 First 50 app test
 w_width 1280
 w_height 720
-time_limit 90
+time_limit 120
 dialogs_count 10
-z-order_count 10
-z-order_frq 1.25
-showdialog_count 0
+z-order_frq 0.5
 showdialog_frq 0
-refresh_count 0
 refresh_frq 0
-tab_change_count 10
 tab_change_frq 1
-button_press_count 30
-button_press_frq 4
-scroll_count 10
+button_press_frq 2
 scroll_frq 1
-select_list_count 10
 select_list_frq 1
-check_list_count 10
 check_list_frq 1
-write_count 10
 write_frq 1
-radio_list_count 10
 radio_list_frq 1
-gauge_count 10
 gauge_frq 1
-outfile D:/Praca/Projekt/AppTester/AppTester/results/result_cmd
+outfile D:/Praca/Projekt/AppTester/AppTester/results/multi_result
