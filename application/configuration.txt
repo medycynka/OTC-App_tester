@@ -14,4 +14,4 @@ check_list_frq 1
 write_frq 1
 radio_list_frq 1
 gauge_frq 1
-outfile D:/Praca/Projekt/AppTester/AppTester/results/multi_result
+outfile D:/Praca/Projekt/AppTester/AppTester/results/winflector_test20_long

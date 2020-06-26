@@ -1,0 +1,21 @@
+@echo off
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t0 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t1 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t2 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t3 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t4 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t5 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t6 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t7 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t8 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t9 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t10 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t11 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t12 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t13 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t14 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t15 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t16 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t17 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t18 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
+start C:\Users\PC\AppData\Roaming\Winflector\client\wfc.exe -addr=192.168.0.101 -user=t19 -passwd=t1234 D:\Praca\Projekt\app D:\Praca\Projekt\app\AppTester.exe
