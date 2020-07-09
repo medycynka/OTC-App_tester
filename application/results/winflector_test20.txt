@@ -1,0 +1,60 @@
+2020:07:09 09:54:56: 10668: TID 1: TM 120: PERF 877: 12.079890%: CPU 3.921162%: First 50 app test 
+z-order 60 8 13%, refresh 1200 146 12%, tab_change 1200 146 12%, button_press 1200 145 12%, scroll 600 73 12%, select_list 600 72 12%, check_list 600 72 12%, radio_list 600 72 12%, write 600 72 12%, gauge 600 71 11% 
+
+2020:07:09 09:54:57: 9632: TID 1: TM 120: PERF 822: 11.322314%: CPU 4.002075%: First 50 app test 
+z-order 60 7 11%, refresh 1200 137 11%, tab_change 1200 137 11%, button_press 1200 136 11%, scroll 600 68 11%, select_list 600 68 11%, check_list 600 68 11%, radio_list 600 67 11%, write 600 67 11%, gauge 600 67 11% 
+
+2020:07:09 09:54:59: 7872: TID 1: TM 120: PERF 768: 10.578512%: CPU 3.956432%: First 50 app test 
+z-order 60 7 11%, refresh 1200 128 10%, tab_change 1200 128 10%, button_press 1200 127 10%, scroll 600 64 10%, select_list 600 63 10%, check_list 600 63 10%, radio_list 600 63 10%, write 600 63 10%, gauge 600 62 10% 
+
+2020:07:09 09:55:00: 9512: TID 1: TM 120: PERF 720: 9.917356%: CPU 3.748963%: First 50 app test 
+z-order 60 7 11%, refresh 1200 120 10%, tab_change 1200 120 10%, button_press 1200 119 9%, scroll 600 60 10%, select_list 600 59 9%, check_list 600 59 9%, radio_list 600 59 9%, write 600 59 9%, gauge 600 58 9% 
+
+2020:07:09 09:55:02: 12168: TID 1: TM 120: PERF 689: 9.490358%: CPU 3.620332%: First 50 app test 
+z-order 60 6 10%, refresh 1200 115 9%, tab_change 1200 115 9%, button_press 1200 114 9%, scroll 600 57 9%, select_list 600 57 9%, check_list 600 57 9%, radio_list 600 56 9%, write 600 56 9%, gauge 600 56 9% 
+
+2020:07:09 09:55:03: 7256: TID 1: TM 120: PERF 669: 9.214876%: CPU 3.518672%: First 50 app test 
+z-order 60 6 10%, refresh 1200 112 9%, tab_change 1200 112 9%, button_press 1200 111 9%, scroll 600 55 9%, select_list 600 55 9%, check_list 600 55 9%, radio_list 600 54 9%, write 600 55 9%, gauge 600 54 9% 
+
+2020:07:09 09:55:05: 8220: TID 1: TM 120: PERF 659: 9.077135%: CPU 3.504149%: First 50 app test 
+z-order 60 6 10%, refresh 1200 110 9%, tab_change 1200 110 9%, button_press 1200 109 9%, scroll 600 55 9%, select_list 600 54 9%, check_list 600 54 9%, radio_list 600 54 9%, write 600 54 9%, gauge 600 53 8% 
+
+2020:07:09 09:55:07: 5436: TID 1: TM 120: PERF 659: 9.077135%: CPU 3.375519%: First 50 app test 
+z-order 60 6 10%, refresh 1200 110 9%, tab_change 1200 110 9%, button_press 1200 109 9%, scroll 600 55 9%, select_list 600 54 9%, check_list 600 54 9%, radio_list 600 54 9%, write 600 54 9%, gauge 600 53 8% 
+
+2020:07:09 09:55:08: 7620: TID 1: TM 120: PERF 665: 9.159780%: CPU 3.271784%: First 50 app test 
+z-order 60 6 10%, refresh 1200 111 9%, tab_change 1200 111 9%, button_press 1200 110 9%, scroll 600 55 9%, select_list 600 55 9%, check_list 600 55 9%, radio_list 600 54 9%, write 600 54 9%, gauge 600 54 9% 
+
+2020:07:09 09:55:10: 11496: TID 1: TM 120: PERF 677: 9.325069%: CPU 3.197095%: First 50 app test 
+z-order 60 6 10%, refresh 1200 113 9%, tab_change 1200 113 9%, button_press 1200 112 9%, scroll 600 56 9%, select_list 600 56 9%, check_list 600 56 9%, radio_list 600 55 9%, write 600 55 9%, gauge 600 55 9% 
+
+2020:07:09 09:55:12: 10020: TID 1: TM 120: PERF 695: 9.573003%: CPU 3.221992%: First 50 app test 
+z-order 60 6 10%, refresh 1200 116 9%, tab_change 1200 116 9%, button_press 1200 115 9%, scroll 600 58 9%, select_list 600 57 9%, check_list 600 57 9%, radio_list 600 57 9%, write 600 57 9%, gauge 600 56 9% 
+
+2020:07:09 09:55:14: 8692: TID 1: TM 120: PERF 720: 9.917356%: CPU 3.435685%: First 50 app test 
+z-order 60 7 11%, refresh 1200 120 10%, tab_change 1200 120 10%, button_press 1200 119 9%, scroll 600 60 10%, select_list 600 59 9%, check_list 600 59 9%, radio_list 600 59 9%, write 600 59 9%, gauge 600 58 9% 
+
+2020:07:09 09:55:16: 9532: TID 1: TM 120: PERF 744: 10.247934%: CPU 3.315353%: First 50 app test 
+z-order 60 7 11%, refresh 1200 124 10%, tab_change 1200 124 10%, button_press 1200 123 10%, scroll 600 62 10%, select_list 600 61 10%, check_list 600 61 10%, radio_list 600 61 10%, write 600 61 10%, gauge 600 60 10% 
+
+2020:07:09 09:55:18: 11608: TID 1: TM 120: PERF 786: 10.826447%: CPU 3.292531%: First 50 app test 
+z-order 60 7 11%, refresh 1200 131 10%, tab_change 1200 131 10%, button_press 1200 130 10%, scroll 600 65 10%, select_list 600 65 10%, check_list 600 65 10%, radio_list 600 64 10%, write 600 64 10%, gauge 600 64 10% 
+
+2020:07:09 09:55:20: 9432: TID 1: TM 120: PERF 828: 11.404959%: CPU 3.267635%: First 50 app test 
+z-order 60 7 11%, refresh 1200 138 11%, tab_change 1200 138 11%, button_press 1200 137 11%, scroll 600 69 11%, select_list 600 68 11%, check_list 600 68 11%, radio_list 600 68 11%, write 600 68 11%, gauge 600 67 11% 
+
+2020:07:09 09:55:22: 11400: TID 1: TM 120: PERF 883: 12.162534%: CPU 3.246888%: First 50 app test 
+z-order 60 8 13%, refresh 1200 147 12%, tab_change 1200 147 12%, button_press 1200 146 12%, scroll 600 73 12%, select_list 600 73 12%, check_list 600 73 12%, radio_list 600 72 12%, write 600 72 12%, gauge 600 72 12% 
+
+2020:07:09 09:55:23: 9468: TID 1: TM 120: PERF 941: 12.961432%: CPU 3.396266%: First 50 app test 
+z-order 60 8 13%, refresh 1200 157 13%, tab_change 1200 156 13%, button_press 1200 156 13%, scroll 600 78 13%, select_list 600 78 13%, check_list 600 77 12%, radio_list 600 77 12%, write 600 77 12%, gauge 600 77 12% 
+
+2020:07:09 09:55:24: 9192: TID 1: TM 120: PERF 1052: 14.490358%: CPU 3.309129%: First 50 app test 
+z-order 60 9 15%, refresh 1200 175 14%, tab_change 1200 175 14%, button_press 1200 174 14%, scroll 600 87 14%, select_list 600 87 14%, check_list 600 87 14%, radio_list 600 86 14%, write 600 86 14%, gauge 600 86 14% 
+
+2020:07:09 09:55:25: 11044: TID 1: TM 120: PERF 1167: 16.074381%: CPU 3.363070%: First 50 app test 
+z-order 60 10 16%, refresh 1200 194 16%, tab_change 1200 194 16%, button_press 1200 193 16%, scroll 600 97 16%, select_list 600 96 16%, check_list 600 96 16%, radio_list 600 96 16%, write 600 96 16%, gauge 600 95 15% 
+
+2020:07:09 09:55:26: 7560: TID 1: TM 120: PERF 1309: 18.030304%: CPU 3.491701%: First 50 app test 
+z-order 60 11 18%, refresh 1200 218 18%, tab_change 1200 217 18%, button_press 1200 217 18%, scroll 600 108 18%, select_list 600 108 18%, check_list 600 108 18%, radio_list 600 107 17%, write 600 108 18%, gauge 600 107 17% 
+
