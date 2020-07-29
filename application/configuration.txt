@@ -1,17 +1,17 @@
-test_id 1 First 50 app test
+test_id 1 Opis testu
 w_width 1280
 w_height 720
 time_limit 120
-dialogs_count 10
+dialogs_count 3
 z-order_frq 0.5
 showdialog_frq 0
 refresh_frq 10
-tab_change_frq 10
-button_press_frq 10
-scroll_frq 5
-select_list_frq 5
-check_list_frq 5
+tab_change_frq 1
+button_press_frq 5
+scroll_frq 2
+select_list_frq 2
+check_list_frq 2
 write_frq 5
-radio_list_frq 5
+radio_list_frq 10
 gauge_frq 5
-outfile D:/Praca/Projekt/AppTester/AppTester/results/winflector_test20
+outfile C:\Users\szymo\Desktop\Programowanie\Projekty\AppTester_\AppTester\results\test30
