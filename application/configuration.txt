@@ -14,4 +14,4 @@ check_list_frq 2
 write_frq 5
 radio_list_frq 10
 gauge_frq 5
-outfile C:\Users\szymo\Desktop\Programowanie\Projekty\AppTester_\AppTester\results\test30
+outfile C:\Users\szymo\Desktop\Programowanie\Projekty\AppTester_\AppTester\results\test20
